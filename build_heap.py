@@ -2,34 +2,28 @@
 
 
 def build_heap(arr):
-
     n = len(arr)
     swaps = []
-	return heap(arr)
-
-def heap(arr):
-    n = len(arr)
-    swaps = []
-    for i in range(n):
-        min_index = i
-        left_index = 2 * i + 1
-        right_index = 2 * i + 2
-        if left_index < n and arr[left_index] < arr[min_index]:
-            min_index = left_index
-        if right_index < n and arr[right_index] < arr[min_index]:
-            min_index = right_index
-        if min_index != i:
-            arr[i], arr[min_index] = arr[min_index], arr[i]
-            swaps.append((i, min_index))
-            i = min_index
+    for i in range(n//2 - 1, -1, -1):
+        heap(arr, n, i, swaps)
+    
     return swaps
 
+def heap(arr, n, i, swaps):
+    min = i 	
+    lSon = 2*i + 1
+    rSon = 2*i + 2
+    if lSon < n and arr[lSon] < arr[min]:
+        min = lSon
+    if rSon < n and arr[rSon] < arr[min]:
+        min = rSon
+    if min != i:
+        arr[i], arr[min] = arr[min], arr[i]  
+        swaps.append((i, min))  
+        heap(arr, n, min, swaps)  
+	
 def main():
-    
-    # TODO : add input and corresponding checks
-    # add another input for I or F 
-    # first two tests are from keyboard, third test is from a file
-    let= input().strip()
+    let = input().strip()
     if let == 'I':
         n = int(input().strip())
         data = list(map(int, input().split()))
@@ -44,8 +38,6 @@ def main():
             data = list(map(int, f.readline().split()))  
             
             assert len(data) == n
-    # calls function to assess the data 
-    # and give back all swaps
     swaps = build_heap(data)
 
     # TODO: output how many swaps were made, 

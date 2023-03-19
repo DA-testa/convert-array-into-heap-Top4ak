@@ -1,18 +1,15 @@
 # 221RDB014 Mihails Ruhļa 13. grupa
 
+
 def build_heap(arr):
+
     n = len(arr)
     swaps = []
-    
-    for i in range(n//2 - 1, -1, -1):
-        heap(arr, n, i, swaps)
-    
-    return swaps
+	return heap(arr)
 
 def heap(arr):
     n = len(arr)
     swaps = []
-    
     for i in range(n):
         min_index = i
         left_index = 2 * i + 1
@@ -25,7 +22,6 @@ def heap(arr):
             arr[i], arr[min_index] = arr[min_index], arr[i]
             swaps.append((i, min_index))
             i = min_index
-            
     return swaps
 
 def main():
@@ -37,7 +33,9 @@ def main():
     if let == 'I':
         n = int(input().strip())
         data = list(map(int, input().split()))
+
         assert len(data) == n
+
     elif let == 'F':
         file = input().strip()
         file = "tests/" + file
@@ -46,7 +44,6 @@ def main():
             data = list(map(int, f.readline().split()))  
             
             assert len(data) == n
-            
     # calls function to assess the data 
     # and give back all swaps
     swaps = build_heap(data)
